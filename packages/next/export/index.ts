@@ -14,7 +14,11 @@ import { promisify } from 'util'
 import { AmpPageStatus, formatAmpMessages } from '../build/output/index'
 import * as Log from '../build/output/log'
 import createSpinner from '../build/spinner'
-import { API_ROUTE, SSG_FALLBACK_EXPORT_ERROR } from '../lib/constants'
+import {
+  API_ROUTE,
+  RESERVED_PAGE,
+  SSG_FALLBACK_EXPORT_ERROR,
+} from '../lib/constants'
 import { recursiveCopy } from '../lib/recursive-copy'
 import { recursiveDelete } from '../lib/recursive-delete'
 import {
@@ -230,9 +234,11 @@ export default async function exportApp(
         continue
       }
 
-      if (page === '/_document' || page === '/_app' || page === '/_error') {
+      if (page.match(RESERVED_PAGE)) {
         continue
       }
+
+      // TODO: also sanitize multiple underscores to remove one.
 
       // iSSG pages that are dynamic should not export templated version by
       // default. In most cases, this would never work. There is no server that

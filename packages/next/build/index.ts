@@ -13,6 +13,7 @@ import formatWebpackMessages from '../client/dev/error-overlay/format-webpack-me
 import {
   STATIC_STATUS_PAGE_GET_INITIAL_PROPS_ERROR,
   PUBLIC_DIR_MIDDLEWARE_CONFLICT,
+  RESERVED_PAGE,
 } from '../lib/constants'
 import { fileExists } from '../lib/file-exists'
 import { findPagesDir } from '../lib/find-pages-dir'
@@ -706,7 +707,7 @@ export default async function build(
               let isHybridAmp = false
               let ssgPageRoutes: string[] | null = null
 
-              const nonReservedPage = !page.match(/\/_(?!_)|^\/api(\/|$)/)
+              const nonReservedPage = !page.match(RESERVED_PAGE)
 
               if (nonReservedPage) {
                 try {
