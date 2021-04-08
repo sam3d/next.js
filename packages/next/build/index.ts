@@ -276,9 +276,7 @@ export default async function build(
       })
 
     const nestedReservedPages = pageKeys.filter((page) => {
-      return (
-        page.match(/\/(_app|_document|_error)$/) && path.dirname(page) !== '/'
-      )
+      return page.match(/(?!^)\/(_app|_document|_error)$/)
     })
 
     if (nestedReservedPages.length) {
