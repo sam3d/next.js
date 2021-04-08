@@ -15,6 +15,7 @@ import {
   SSG_GET_INITIAL_PROPS_CONFLICT,
   SERVER_PROPS_GET_INIT_PROPS_CONFLICT,
   SERVER_PROPS_SSG_CONFLICT,
+  LAYOUT_PAGE,
 } from '../lib/constants'
 import prettyBytes from '../lib/pretty-bytes'
 import { recursiveReadDir } from '../lib/recursive-readdir'
@@ -124,6 +125,7 @@ export async function printTreeView(
         !(
           e === '/_document' ||
           e === '/_error' ||
+          e.match(LAYOUT_PAGE) ||
           (!hasCustomApp && e === '/_app')
         )
     )

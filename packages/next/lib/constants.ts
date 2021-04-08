@@ -20,6 +20,9 @@ export const API_ROUTE = /^\/api(?:\/|$)/
 // Regex for reserved pages
 export const RESERVED_PAGE = /\/_(?!_)|^\/api(\/|$)/
 
+// Regex for layout pages
+export const LAYOUT_PAGE = /\/(_layout|_reset)$/
+
 // Because on Windows absolute paths in the generated code can break because of numbers, eg 1 in the path,
 // we have to use a private alias
 export const PAGES_DIR_ALIAS = 'private-next-pages'
