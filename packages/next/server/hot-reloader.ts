@@ -10,7 +10,7 @@ import { watchCompilers } from '../build/output'
 import getBaseWebpackConfig from '../build/webpack-config'
 import { API_ROUTE } from '../lib/constants'
 import { recursiveDelete } from '../lib/recursive-delete'
-import { BLOCKED_PAGES } from '../next-server/lib/constants'
+import { isBlockedPage } from '../next-server/server/utils'
 import { __ApiPreviewProps } from '../next-server/server/api-utils'
 import { route } from '../next-server/server/router'
 import { findPageFile } from './lib/find-page-file'
@@ -221,7 +221,7 @@ export default class HotReloader {
 
       const page = denormalizePagePath(decodedPagePath)
 
-      if (page === '/_error' || BLOCKED_PAGES.indexOf(page) === -1) {
+      if (page === '/_error' || !isBlockedPage(page)) {
         try {
           await this.ensurePage(page)
         } catch (error) {
@@ -569,7 +569,7 @@ export default class HotReloader {
 
   public async ensurePage(page: string) {
     // Make sure we don't re-build or dispose prebuilt pages
-    if (page !== '/_error' && BLOCKED_PAGES.indexOf(page) !== -1) {
+    if (page !== '/_error' && isBlockedPage(page)) {
       return
     }
     if (this.serverError || this.clientError) {

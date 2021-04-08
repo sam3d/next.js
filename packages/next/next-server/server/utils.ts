@@ -1,7 +1,5 @@
-import { BLOCKED_PAGES } from '../lib/constants'
-
 export function isBlockedPage(pathname: string): boolean {
-  return BLOCKED_PAGES.includes(pathname)
+  return Boolean(pathname.match(/\/_(?!_)|^\/api(\/|$)/))
 }
 
 export function cleanAmpPath(pathname: string): string {
